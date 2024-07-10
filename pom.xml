@@ -14,6 +14,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+<<<<<<< HEAD
+=======
     <dependencies>
         <!-- Manipulación del json -->
         <dependency>
@@ -29,4 +31,5 @@
 
 
     </dependencies>
+>>>>>>> 33bd82835b6731edcc703d1a7546cf79d9cba0cd
 </project>
