@@ -1,9 +1,10 @@
---Create database
-CREATE DATABASE IF NOT EXISTS peliculas_db;
---Use database
-USE peliculas_db;
+/* Create database */
+CREATE DATABASE IF NOT EXISTS filmoteca;
 
---Create Table
+/*Use database*/
+USE filmoteca;
+
+/*Create Table*/
 CREATE TABLE IF NOT EXISTS peliculas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
@@ -12,7 +13,7 @@ CREATE TABLE IF NOT EXISTS peliculas (
     genero VARCHAR(100)
 );
 
---Inserts
+/*Inserts*/
 INSERT INTO peliculas (titulo, director, anio, genero) VALUES
 ('The Godfather', 'Francis Ford Coppola', 1972, 'Crime'),
 ('The Dark Knight', 'Christopher Nolan', 2008, 'Action'),
