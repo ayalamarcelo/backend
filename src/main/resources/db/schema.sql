@@ -4,8 +4,10 @@ CREATE DATABASE IF NOT EXISTS filmoteca;
 /*Use database*/
 USE filmoteca;
 
+DROP TABLE IF EXISTS peliculas;
+
 /*Create Table*/
-CREATE TABLE IF NOT EXISTS peliculas (
+CREATE TABLE peliculas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     director VARCHAR(255) NOT NULL,

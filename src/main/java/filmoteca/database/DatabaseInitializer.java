@@ -2,25 +2,35 @@ package filmoteca.database;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.sql.Connection;
-import java.sql.Statement;
 
 public class DatabaseInitializer {
     public static void initializeDatabase() {
-        try (Connection con = DatabaseConnection.getConnection();
-             Statement stmt = con.createStatement();
-             BufferedReader br = new BufferedReader(new FileReader("src/main/resources/db/schema.sql"))) {
+        try (var con = DatabaseConnection.getInitialConnection();
+             var stmt = con.createStatement()) {
+            var sqlFile = "src/main/resources/db/schema.sql";
+            var sql = readSqlFile(sqlFile);
 
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-                sb.append(System.lineSeparator());
+            var sqlStatements = sql.split(";");
+            for (var sqlStatement : sqlStatements) {
+                if (!sqlStatement.trim().isEmpty()) {
+                    stmt.execute(sqlStatement.trim());
+                }
             }
-            String sql = sb.toString();
-            stmt.execute(sql);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static String readSqlFile(String filePath) {
+        var content = new StringBuilder();
+        try (var br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return content.toString();
     }
 }
