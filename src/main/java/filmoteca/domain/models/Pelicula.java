@@ -31,4 +31,11 @@ public class Pelicula {
 
     public String getGenero() { return genero; }
     public void setGenero(String genero) { this.genero = genero; }
+
+    public void mostrarDetalles() {
+        System.out.println("Título: " + getTitulo());
+        System.out.println("Director: " + getDirector());
+        System.out.println("Año: " + getAnio());
+        System.out.println("Género: " + getGenero());
+    }
 }

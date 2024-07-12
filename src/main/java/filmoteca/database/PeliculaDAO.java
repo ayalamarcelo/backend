@@ -1,15 +1,16 @@
 package filmoteca.database;
 
 import filmoteca.domain.models.Pelicula;
-import java.sql.*;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PeliculaDAO {
 
     public void crearPelicula(Pelicula pelicula) {
-        String query = "INSERT INTO pelicula (titulo, director, anio, genero) VALUES (?, ?, ?, ?)";
-        try (Connection con = DatabaseConnection.getConnection(); PreparedStatement pst = con.prepareStatement(query)) {
+        var query = "INSERT INTO peliculas (titulo, director, anio, genero) VALUES (?, ?, ?, ?)";
+        try (var con = DatabaseConnection.getConnection(); var pst = con.prepareStatement(query)) {
             pst.setString(1, pelicula.getTitulo());
             pst.setString(2, pelicula.getDirector());
             pst.setInt(3, pelicula.getAnio());
@@ -21,12 +22,12 @@ public class PeliculaDAO {
     }
 
     public Pelicula leerPelicula(int id) {
-        String query = "SELECT * FROM pelicula WHERE id = ?";
-        try (Connection con = DatabaseConnection.getConnection(); PreparedStatement pst = con.prepareStatement(query)) {
+        String query = "SELECT * FROM peliculas WHERE id = ?";
+        try (var con = DatabaseConnection.getConnection(); var pst = con.prepareStatement(query)) {
             pst.setInt(1, id);
-            ResultSet rs = pst.executeQuery();
+            var rs = pst.executeQuery();
             if (rs.next()) {
-                Pelicula pelicula = new Pelicula(
+                var pelicula = new Pelicula(
                         rs.getString("titulo"),
                         rs.getString("director"),
                         rs.getInt("anio"),
@@ -42,9 +43,10 @@ public class PeliculaDAO {
     }
 
     public List<Pelicula> leerTodasLasPeliculas() {
-        String query = "SELECT * FROM pelicula";
-        List<Pelicula> peliculas = new ArrayList<>();
-        try (Connection con = DatabaseConnection.getConnection(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(query)) {
+        var query = "SELECT * FROM peliculas";
+        var peliculas = new ArrayList<Pelicula>();
+        try (var con = DatabaseConnection.getConnection(); var st = con.createStatement();
+             var rs = st.executeQuery(query)) {
             while (rs.next()) {
                 Pelicula pelicula = new Pelicula(
                         rs.getString("titulo"),
@@ -62,8 +64,9 @@ public class PeliculaDAO {
     }
 
     public void actualizarPelicula(Pelicula pelicula) {
-        String query = "UPDATE pelicula SET titulo = ?, director = ?, anio = ?, genero = ? WHERE id = ?";
-        try (Connection con = DatabaseConnection.getConnection(); PreparedStatement pst = con.prepareStatement(query)) {
+        var query = "UPDATE peliculas SET titulo = ?, director = ?, anio = ?, genero = ? WHERE" +
+            " id = ?";
+        try (var con = DatabaseConnection.getConnection(); var pst = con.prepareStatement(query)) {
             pst.setString(1, pelicula.getTitulo());
             pst.setString(2, pelicula.getDirector());
             pst.setInt(3, pelicula.getAnio());
@@ -76,8 +79,8 @@ public class PeliculaDAO {
     }
 
     public void eliminarPelicula(int id) {
-        String query = "DELETE FROM pelicula WHERE id = ?";
-        try (Connection con = DatabaseConnection.getConnection(); PreparedStatement pst = con.prepareStatement(query)) {
+        var query = "DELETE FROM peliculas WHERE id = ?";
+        try (var con = DatabaseConnection.getConnection(); var pst = con.prepareStatement(query)) {
             pst.setInt(1, id);
             pst.executeUpdate();
         } catch (SQLException e) {
