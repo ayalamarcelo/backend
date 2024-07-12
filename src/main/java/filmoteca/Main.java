@@ -17,7 +17,9 @@ public class Main {
 
         // Leer una película por id
         var pelicula = peliculaDAO.leerPelicula(1);
-        System.out.println("Leer Película: " + pelicula.getTitulo());
+        if (pelicula != null) {
+            System.out.println("Leer Película: " + pelicula.getTitulo());
+        }
 
         // Leer todas las películas
         var peliculas = peliculaDAO.leerTodasLasPeliculas();
