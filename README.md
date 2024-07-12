@@ -36,7 +36,7 @@ filmoteca/
 
 ### Requisitos:
 
-  - Java 8 o superior
+  - Java 7 o superior
   - MySQL
   - Maven
 
