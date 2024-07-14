@@ -4,50 +4,54 @@ Proyecto backend para gestionar información sobre películas utilizando Java y 
 ## Estructura del Proyecto
 
 ```plaintext
-filmoteca/
+backend/
 ├── src/
 │   ├── main/
 │   │   ├── java/
-│   │   │   └── filmoteca/
-│   │   │       ├── Main.java
-│   │   │       ├── database/
-│   │   │       │   ├── DatabaseConnection.java
-│   │   │       │   ├── PeliculaDAO.java
-│   │   │       │   └── DatabaseInitializer.java
-│   │   │       ├── domain/
-│   │   │       │   └── models/
-│   │   │       │       ├── Pelicula.java
-│   │   │       │       ├── Accion.java
-│   │   │       │       ├── Comedia.java
-│   │   │       │       └── Drama.java
-│   │   │       └── services/
-│   │   │           └── PeliculaService.java
+│   │   │   ├── application/
+│   │   │   │   └── services/
+│   │   │   │       ├── IPersistencia.java
+│   │   │   │       └── PeliculaService.java
+│   │   │   ├── domain/
+│   │   │   │   └── models/
+│   │   │   │       ├── Accion.java
+│   │   │   │       ├── Comedia.java
+│   │   │   │       ├── Drama.java
+│   │   │   │       └── Pelicula.java
+│   │   │   └── infrastructure/
+│   │   │       └── repository/
+│   │   │           └── controllers/
+│   │   │               ├── DatabaseConnection.java
+│   │   │               ├── DatabaseInitializer.java
+│   │   │               └── PeliculaDAO.java
 │   │   └── resources/
-│   │       ├── application.properties
 │   │       └── db/
 │   │           └── schema.sql
-│   └── test/
-│       └── java/
-│           └── filmoteca/
-│               └── PeliculaDAOTest.java
+│   └── webapp/
+│       └── WEB-INF/
+│           └── index.jsp
+├── .gitignore
+├── backend.iml
 ├── pom.xml
-└── README.md
+├── README.md
+└── Main.java
+
 ```
 
 ### Requisitos:
 
-  - Java 7 o superior
-  - MySQL
-  - Maven
+- Java 7 o superior
+- MySQL
+- Maven
 
 ### Configuración de la Base de Datos
 
-Asegúrate de tener un servidor MySQL en funcionamiento. 
+Asegúrate de tener un servidor MySQL en funcionamiento.
 Configura la conexión a la base de datos en el archivo src/main/resources/application.properties:
 
 ```dtd
 # src/main/resources/application.properties
-db.url=jdbc:mysql://localhost:3306/filmoteca
+db.url=jdbc:mysql://localhost:3306/
 db.username=tu_usuario
 db.password=tu_contraseña
 ```

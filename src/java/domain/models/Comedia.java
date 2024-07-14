@@ -1,4 +1,4 @@
-package filmoteca.domain.models;
+package java.domain.models;
 
 public class Comedia extends Pelicula {
     private boolean esFamiliar;

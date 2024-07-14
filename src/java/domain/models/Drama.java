@@ -1,4 +1,4 @@
-package filmoteca.domain.models;
+package java.domain.models;
 
 public class Drama extends Pelicula {
     private boolean basadoEnHechosReales;

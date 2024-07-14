@@ -1,4 +1,4 @@
-package filmoteca.domain.models;
+package java.domain.models;
 
 public class Pelicula {
     private int id;
@@ -37,5 +37,16 @@ public class Pelicula {
         System.out.println("Director: " + getDirector());
         System.out.println("Año: " + getAnio());
         System.out.println("Género: " + getGenero());
+    }
+
+    @Override
+    public String toString() {
+        return "Pelicula{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", director='" + director + '\'' +
+                ", anio=" + anio +
+                ", genero='" + genero + '\'' +
+                '}';
     }
 }

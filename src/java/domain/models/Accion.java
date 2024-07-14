@@ -1,4 +1,6 @@
-package filmoteca.domain.models;
+package java.domain.models;
+
+import java.domain.models.Pelicula;
 
 public class Accion extends Pelicula {
     private boolean tieneEscenasDePelea;
