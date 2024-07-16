@@ -33,8 +33,7 @@ backend/
 ├── .gitignore
 ├── backend.iml
 ├── pom.xml
-├── README.md
-└── Main.java
+└── README.md
 
 ```
 

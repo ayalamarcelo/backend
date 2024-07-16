@@ -1,5 +1,6 @@
 package java.infrastructure.repository.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.domain.models.Pelicula;
 import java.infrastructure.repository.DatabaseConnection;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @WebServlet("/pelicula")
 public class PeliculaServlet extends HttpServlet {
     private PeliculaController peliculaController;
+    private ObjectMapper objectMapper;
 
     @Override
     public void init() throws ServletException {
@@ -26,6 +28,7 @@ public class PeliculaServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
         this.peliculaController = new PeliculaController(conexion);
+        this.objectMapper = new ObjectMapper();
     }
 
     @Override
@@ -55,49 +58,35 @@ public class PeliculaServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String titulo = req.getParameter("titulo");
-        String director = req.getParameter("director");
-        int anio = Integer.parseInt(req.getParameter("anio"));
-        String genero = req.getParameter("genero");
-
-        Pelicula nuevaPelicula = new Pelicula(titulo, director, anio, genero);
+        Pelicula nuevaPelicula = objectMapper.readValue(req.getReader(), Pelicula.class);
         try {
             peliculaController.crearPelicula(nuevaPelicula);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         resp.sendRedirect("pelicula");
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        String titulo = req.getParameter("titulo");
-        String director = req.getParameter("director");
-        int anio = Integer.parseInt(req.getParameter("anio"));
-        String genero = req.getParameter("genero");
-
-        Pelicula pelicula = new Pelicula(titulo, director, anio, genero);
-        pelicula.setId(id);
+        Pelicula pelicula = objectMapper.readValue(req.getReader(), Pelicula.class);
         try {
             peliculaController.actualizarPelicula(pelicula);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         resp.sendRedirect("pelicula");
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
+        Pelicula pelicula = objectMapper.readValue(req.getReader(), Pelicula.class);
         try {
-            peliculaController.eliminarPelicula(id);
+            peliculaController.eliminarPelicula(pelicula.getId());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         resp.sendRedirect("pelicula");
     }
 }
+

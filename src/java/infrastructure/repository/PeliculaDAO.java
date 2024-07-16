@@ -20,7 +20,7 @@ public class PeliculaDAO implements IPersistencia<Pelicula> {
             pst.setString(4, pelicula.getGenero());
             pst.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error al crear la película", e);
         }
     }
 
@@ -42,7 +42,7 @@ public class PeliculaDAO implements IPersistencia<Pelicula> {
                 return pelicula;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error al leer la película con ID " + id, e);
         }
         return null;
     }
@@ -65,7 +65,7 @@ public class PeliculaDAO implements IPersistencia<Pelicula> {
                 peliculas.add(pelicula);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error al leer todas las películas", e);
         }
         return peliculas;
     }
@@ -82,7 +82,7 @@ public class PeliculaDAO implements IPersistencia<Pelicula> {
             pst.setInt(5, pelicula.getId());
             pst.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error al actualizar la película con ID " + pelicula.getId(), e);
         }
     }
 
@@ -94,7 +94,7 @@ public class PeliculaDAO implements IPersistencia<Pelicula> {
             pst.setInt(1, id);
             pst.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error al eliminar la película con ID " + id, e);
         }
     }
 }
