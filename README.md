@@ -1,4 +1,4 @@
-<h1>Proyecto Backend</h1>
+<h1 align="center">Proyecto Backend</h1>
 
 <p>Este proyecto es una aplicación backend desarrollada en Java utilizando Servlet, Apache Tomcat y MySQL. 
 El propósito del proyecto es proporcionar una API para gestionar películas, que incluye operaciones CRUD con Postman.</p>
