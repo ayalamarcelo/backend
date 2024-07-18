@@ -1,4 +1,5 @@
-/smarttomcat
+/*Tom Cat Apache*/
+/smarttomcat/
 
 target/
 !.mvn/wrapper/maven-wrapper.jar

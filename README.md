@@ -48,7 +48,7 @@ backend/
 - [x] Maven
 
 ### Configuración del Entorno
-- Base de Datos
+##### Base de Datos
 
  1. Crear una base de datos en MySQL(Copiar la de la carpeta resources)
  2. Clonar repositorio (Se recomienda hacer un FORK)
@@ -56,11 +56,8 @@ backend/
 
 
 ### Uso
-
-#### Despliegue
-
-- Desplegar la aplicación en Apache Tomcat.
-- Endpoints:
+#### Desplegar la aplicación en Apache Tomcat.
+##### Endpoints:
 
 * GET /api/peliculas: Obtiene todas las películas.
 * GET /api/peliculas/{id}: Obtiene una película por ID.
