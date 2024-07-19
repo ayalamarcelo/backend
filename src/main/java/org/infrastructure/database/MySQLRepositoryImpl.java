@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MySQLRepositoryImpl implements IRepository {
 
@@ -77,20 +79,23 @@ public class MySQLRepositoryImpl implements IRepository {
     @Override
     public boolean updatePelicula(Pelicula pelicula) {
         String sql = "UPDATE peliculas SET titulo = ?, director = ?, genero = ? WHERE id = ?";
-
-        try {
-            PreparedStatement preparer = this.conexion.prepareStatement(sql);
+        
+        // Use a logger instead of System.out.println
+        Logger logger = Logger.getLogger(this.getClass().getName());
+    
+        // Try-with-resources to ensure resources are closed
+        try (PreparedStatement preparer = this.conexion.prepareStatement(sql)) {
             preparer.setString(1, pelicula.getTitulo());
             preparer.setString(2, pelicula.getDirector());
             preparer.setString(3, pelicula.getGenero());
             preparer.setInt(4, pelicula.getId());
-
+    
             int updated = preparer.executeUpdate();
-            System.out.println("Los archivos se actualizaron..." + updated);
+            logger.log(Level.INFO, "Los archivos se actualizaron: {0}", updated);
             return updated > 0;
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, "Error updating Pelicula", e);
+            throw new RuntimeException("Error updating Pelicula", e);
         }
     }
 }

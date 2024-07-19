@@ -80,31 +80,40 @@ public class PeliculaController extends HttpServlet {
         }
     }
 
+   
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String idString = req.getParameter("id");
-        String titulo = req.getParameter("titulo");
-        String director = req.getParameter("director");
-        String genero = req.getParameter("genero");
+        ObjectMapper mapper = new ObjectMapper();
 
-        if (idString != null && !idString.isEmpty() &&
-                titulo != null && !titulo.isEmpty() &&
-                director != null && !director.isEmpty() &&
-                genero != null && !genero.isEmpty()) {
+        try {
+          // Read the request body and convert it to a Pelicula object
+          Pelicula pelicula = mapper.readValue(req.getInputStream(), Pelicula.class);
 
-            int id = Integer.parseInt(idString);
-            Pelicula pelicula = new Pelicula(id, titulo, director, genero);
+          // Validate the fields of the Pelicula object
+          if (pelicula.getId() != 0 &&
+             pelicula.getTitulo() != null && !pelicula.getTitulo().isEmpty() &&
+             pelicula.getDirector() != null && !pelicula.getDirector().isEmpty() &&
+             pelicula.getGenero() != null && !pelicula.getGenero().isEmpty()) {
 
-            boolean updated = service.updatePelicula(pelicula);
+              // Attempt to update the movie record
+             boolean updated = service.updatePelicula(pelicula);
 
-            if (updated) {
-                resp.setStatus(HttpServletResponse.SC_OK);
-                resp.getWriter().write("Datos actualizados...");
+             // Set the response status and message based on the update result
+                if (updated) {
+                   resp.setStatus(HttpServletResponse.SC_OK);
+                 resp.getWriter().write("Datos actualizados...");
+                } else {
+                     resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                   resp.getWriter().write("Datos no actualizados...");
+               }
             } else {
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                resp.getWriter().write("Datos no actualizados...");
-            }
+              resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+             resp.getWriter().write("Invalid input data...");
+           }
+        } catch (Exception e) {
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.getWriter().write("Error processing request: " + e.getMessage());
         }
     }
 }
