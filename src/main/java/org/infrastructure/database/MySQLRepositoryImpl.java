@@ -79,17 +79,17 @@ public class MySQLRepositoryImpl implements IRepository {
     @Override
     public boolean updatePelicula(Pelicula pelicula) {
         String sql = "UPDATE peliculas SET titulo = ?, director = ?, genero = ? WHERE id = ?";
-    
+        
         // Use a logger instead of System.out.println
         Logger logger = Logger.getLogger(this.getClass().getName());
-
+    
         // Try-with-resources to ensure resources are closed
         try (PreparedStatement preparer = this.conexion.prepareStatement(sql)) {
             preparer.setString(1, pelicula.getTitulo());
             preparer.setString(2, pelicula.getDirector());
             preparer.setString(3, pelicula.getGenero());
             preparer.setInt(4, pelicula.getId());
-
+    
             int updated = preparer.executeUpdate();
             logger.log(Level.INFO, "Los archivos se actualizaron: {0}", updated);
             return updated > 0;
