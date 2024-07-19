@@ -50,7 +50,7 @@ public class MySQLRepositoryImpl implements IRepository {
                 pelicula.setDirector(virtualTable.getString("director"));
                 pelicula.setGenero(virtualTable.getString("genero"));
                 return pelicula;
-            };
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -83,8 +83,10 @@ public class MySQLRepositoryImpl implements IRepository {
             preparer.setString(1, pelicula.getTitulo());
             preparer.setString(2, pelicula.getDirector());
             preparer.setString(3, pelicula.getGenero());
+            preparer.setInt(4, pelicula.getId());
 
             int updated = preparer.executeUpdate();
+            System.out.println("Los archivos se actualizaron..." + updated);
             return updated > 0;
 
         } catch (SQLException e) {

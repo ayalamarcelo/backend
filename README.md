@@ -54,13 +54,19 @@ backend/
  2. Clonar repositorio (Se recomienda hacer un FORK)
  3. Configurar Apache Tomcat para desplegar la aplicación.
 
+> [!TIP]
+> Cambiar puerto en Apache Tomcat
+
+```dtd
+Connector port=”8090″ protocol=”HTTP/1.1″ connectionTimeout=”20000″ redirectPort=”8443″
+```
+
 
 ### Uso
 #### Desplegar la aplicación en Apache Tomcat.
 ##### Endpoints:
 
-* GET /api/peliculas: Obtiene todas las películas.
-* GET /api/peliculas/{id}: Obtiene una película por ID.
-* POST /api/peliculas: Crea una nueva película.
-* PUT /api/peliculas/{id}: Actualiza una película existente.
-* DELETE /api/peliculas/{id}: Elimina una película por ID.
+* GET /peliculas/{id}: Obtiene una película por ID.
+* POST /peliculas Crea una nueva película.
+* PUT /peliculas/{id}: Actualiza una película existente.
+* DELETE /peliculas/{id}: Elimina una película por ID.

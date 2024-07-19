@@ -88,10 +88,14 @@ public class PeliculaController extends HttpServlet {
         String director = req.getParameter("director");
         String genero = req.getParameter("genero");
 
-        if(idString != null && !idString.isEmpty() && titulo != null && !titulo.isEmpty() && director != null && !director.isEmpty() && genero != null && !genero.isEmpty()) {
-            int id = 0;
+        if (idString != null && !idString.isEmpty() &&
+                titulo != null && !titulo.isEmpty() &&
+                director != null && !director.isEmpty() &&
+                genero != null && !genero.isEmpty()) {
+
+            int id = Integer.parseInt(idString);
             Pelicula pelicula = new Pelicula(id, titulo, director, genero);
-            id = Integer.parseInt(idString);
+
             boolean updated = service.updatePelicula(pelicula);
 
             if (updated) {
@@ -101,7 +105,6 @@ public class PeliculaController extends HttpServlet {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 resp.getWriter().write("Datos no actualizados...");
             }
-
         }
     }
 }
