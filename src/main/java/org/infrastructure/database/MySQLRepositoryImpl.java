@@ -91,11 +91,11 @@ public class MySQLRepositoryImpl implements IRepository {
             preparer.setInt(4, pelicula.getId());
     
             int updated = preparer.executeUpdate();
-            logger.log(Level.INFO, "Los archivos se actualizaron: {0}", updated);
+            logger.log(Level.INFO, "Updated files: {0}", updated);
             return updated > 0;
         } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error updating Pelicula", e);
-            throw new RuntimeException("Error updating Pelicula", e);
+            logger.log(Level.SEVERE, "Error updating files", e);
+            throw new RuntimeException("Error updating files", e);
         }
     }
 }

@@ -30,7 +30,13 @@ public class PeliculaController extends HttpServlet {
         // configureCorsHeaders(resp);
     }
 
+    /*
+     Note: This method will be improved later when the front-end is integrated
+     with the back-end.
+    */
+
     private void configureCorsHeaders(HttpServletResponse resp) {
+        // TODO: Improve CORS configuration when integrating the front-end with the back-end.
         resp.setHeader("Access-Control-Allow-Origin", "#");
         resp.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, OPTIONS, PUT");
         resp.setHeader("Access-Control-Allow-Header", "content-type");
