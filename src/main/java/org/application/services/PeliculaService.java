@@ -26,6 +26,6 @@ public class PeliculaService implements IRepository {
     @Override
     public boolean updatePelicula(Pelicula pelicula) {
         repository.updatePelicula(pelicula);
-        return false;
+        return true;
     }
 }

@@ -86,7 +86,6 @@ public class PeliculaController extends HttpServlet {
         }
     }
 
-   
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -97,8 +96,7 @@ public class PeliculaController extends HttpServlet {
           Pelicula pelicula = mapper.readValue(req.getInputStream(), Pelicula.class);
 
           // Validate the fields of the Pelicula object
-          if (pelicula.getId() != 0 &&
-             pelicula.getTitulo() != null && !pelicula.getTitulo().isEmpty() &&
+          if (pelicula.getId() != 0 &&  pelicula.getTitulo() != null && !pelicula.getTitulo().isEmpty() &&
              pelicula.getDirector() != null && !pelicula.getDirector().isEmpty() &&
              pelicula.getGenero() != null && !pelicula.getGenero().isEmpty()) {
 
