@@ -1,12 +1,11 @@
 package org.application.adapters;
 
-import org.domain.models.Pelicula;
-import org.infrastructure.controllers.PeliculaController;
+import org.domain.models.Movie;
 
 public interface IRepository {
 
-    void savePelicula(Pelicula pelicula);
-    Pelicula findByTitulo(String titulo);
-    void deletePelicula(int id);
-    boolean updatePelicula(Pelicula pelicula);
+    void saveMovie(Movie movie);
+    Movie findByTitle(String title);
+    void deleteMovie(int id);
+    boolean updateMovie(Movie movie);
 }

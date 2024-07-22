@@ -1,10 +1,9 @@
-<h1 align="center">Proyecto Backend</h1>
+<h1 align="center">Film Archive Backend</h1>
 
-<p>Este proyecto es una aplicación backend desarrollada en Java utilizando Servlet, Apache Tomcat y MySQL. 
-El propósito del proyecto es proporcionar una API para gestionar películas, que incluye operaciones CRUD con Postman.</p>
+<p>This project is a backend application developed in Java using Servlet, Apache Tomcat and MySQL. The purpose of the project is to provide an API for managing movies, including CRUD operations with Postman.</p>
 
 
-## Estructura del proyecto
+## Project Structure
 ```
 backend/
 ├── .idea/
@@ -40,33 +39,45 @@ backend/
 └── README.md
 ```
 
-### Requisitos
+### Requirements
 
 - [x] JDK 17
 - [x] Apache Tomcat 9.0
 - [x] MySQL
 - [x] Maven
 
-### Configuración del Entorno
-##### Base de Datos
+### Environment Configuration
+#### Database
 
- 1. Crear una base de datos en MySQL(Copiar la de la carpeta resources)
- 2. Clonar repositorio (Se recomienda hacer un FORK)
- 3. Configurar Apache Tomcat para desplegar la aplicación.
+1. Create a database in MySQL (Copy the one from the resource folder)
+2. Clone repository (It is recommended to do a FORK)
+3. Configure Apache Tomcat to deploy the application.
 
 > [!TIP]
-> Cambiar puerto en Apache Tomcat
+> Change port in Apache Tomcat
 
 ```dtd
 Connector port=”8090″ protocol=”HTTP/1.1″ connectionTimeout=”20000″ redirectPort=”8443″
 ```
 
-
-### Uso
-#### Desplegar la aplicación en Apache Tomcat.
+### Use
+#### Deploy the application to Apache Tomcat.
 ##### Endpoints:
 
-* GET /peliculas/{id}: Obtiene una película por ID.
-* POST /peliculas Crea una nueva película.
-* PUT /peliculas/{id}: Actualiza una película existente.
-* DELETE /peliculas/{id}: Elimina una película por ID.
+* GET /movies/{id}: Gets a movie by ID.
+* POST /movies Create a new movie.
+* PUT /movies/{id}: Update an existing movie.
+* DELETE /movies/{id}: Delete a movie by ID.
+
+> [!TIP]
+> For PUTs on postman: 
+> 1. Select: Body
+> 2. Select: Rows
+> 3. Paste a JSON on rows:
+> 4. {
+     "id":1,
+     "title":"The Lord of the Rings",
+     "director": "Peter Jackson",
+     "genre": "Fantasy"
+     }
+

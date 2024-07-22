@@ -8,12 +8,12 @@ public class DatabaseConnection {
 
     private static final String URL = "jdbc:mysql://localhost:3306/movies_db";
     private static final String USER = "root";
-    private static final String PASSWORD = "password";
+    private static final String PASSWORD = "35220824Marcelo";
 
     public static Connection getConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            System.out.print("Conexión establecida...");
+            System.out.print("Established connection...");
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);

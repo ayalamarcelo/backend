@@ -1,8 +1,8 @@
 package org.infrastructure.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.application.services.PeliculaService;
-import org.domain.models.Pelicula;
+import org.application.services.MovieService;
+import org.domain.models.Movie;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,17 +10,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
-@WebServlet("/peliculas")
-public class PeliculaController extends HttpServlet {
+@WebServlet("/movies")
+public class MovieController extends HttpServlet {
 
     private final ObjectMapper mapper;
-    private final PeliculaService service;
+    private final MovieService service;
 
-    public PeliculaController() {
+    public MovieController() {
         this.mapper = new ObjectMapper();
-        this.service = new PeliculaService();
+        this.service = new MovieService();
     }
 
     // CORSFilter
@@ -45,8 +44,8 @@ public class PeliculaController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        Pelicula pelicula = mapper.readValue(req.getInputStream(), Pelicula.class);
-        service.savePelicula(pelicula);
+        Movie movie = mapper.readValue(req.getInputStream(), Movie.class);
+        service.saveMovie(movie);
         resp.setStatus(200);
     }
 
@@ -54,19 +53,19 @@ public class PeliculaController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         // configureCorsHeaders(resp);
-        String titulo = req.getParameter("titulo");
-        if(titulo != null) {
-            Pelicula pelicula = service.findByTitulo(titulo);
-            if(pelicula != null) {
+        String title = req.getParameter("title");
+        if(title != null) {
+            Movie movie = service.findByTitle(title);
+            if(movie != null) {
                 resp.setStatus(200);
                 resp.setContentType("application/json");
                 resp.setCharacterEncoding("UTF-8");
-                resp.getWriter().write(mapper.writeValueAsString(pelicula));
+                resp.getWriter().write(mapper.writeValueAsString(movie));
 
             } else {
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 resp.setContentType("text/plain");
-                resp.getWriter().write("Pelicula no encontrada...");
+                resp.getWriter().write("Movie not found...");
             }
         }
     }
@@ -78,11 +77,11 @@ public class PeliculaController extends HttpServlet {
 
         if (idString != null && !idString.isEmpty()) {
             int id = Integer.parseInt(idString);
-            service.deletePelicula(id);
+            service.deleteMovie(id);
             resp.setStatus(200);
         } else {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().write("ID inválido");
+            resp.getWriter().write("Invalid ID");
         }
     }
 
@@ -92,24 +91,24 @@ public class PeliculaController extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-          // Read the request body and convert it to a Pelicula object
-          Pelicula pelicula = mapper.readValue(req.getInputStream(), Pelicula.class);
+          // Read the request body and convert it to a Movie object
+          Movie movie = mapper.readValue(req.getInputStream(), Movie.class);
 
-          // Validate the fields of the Pelicula object
-          if (pelicula.getId() != 0 &&  pelicula.getTitulo() != null && !pelicula.getTitulo().isEmpty() &&
-             pelicula.getDirector() != null && !pelicula.getDirector().isEmpty() &&
-             pelicula.getGenero() != null && !pelicula.getGenero().isEmpty()) {
+          // Validate the fields of the Movie object
+          if (movie.getId() != 0 &&  movie.getTitle() != null && !movie.getTitle().isEmpty() &&
+             movie.getDirector() != null && !movie.getDirector().isEmpty() &&
+             movie.getGenre() != null && !movie.getGenre().isEmpty()) {
 
               // Attempt to update the movie record
-             boolean updated = service.updatePelicula(pelicula);
+             boolean updated = service.updateMovie(movie);
 
              // Set the response status and message based on the update result
                 if (updated) {
                    resp.setStatus(HttpServletResponse.SC_OK);
-                 resp.getWriter().write("Datos actualizados...");
+                 resp.getWriter().write("Updated data!");
                 } else {
                      resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                   resp.getWriter().write("Datos no actualizados...");
+                   resp.getWriter().write("Data not updated...");
                }
             } else {
               resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);

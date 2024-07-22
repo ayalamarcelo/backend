@@ -1,7 +1,7 @@
 package org.infrastructure.database;
 
 import org.application.adapters.IRepository;
-import org.domain.models.Pelicula;
+import org.domain.models.Movie;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,21 +12,21 @@ import java.util.logging.Logger;
 
 public class MySQLRepositoryImpl implements IRepository {
 
-    private final Connection conexion;
+    private final Connection connection;
 
     public MySQLRepositoryImpl() {
-        this.conexion = DatabaseConnection.getConnection();
+        this.connection = DatabaseConnection.getConnection();
     }
 
     @Override
-    public void savePelicula(Pelicula pelicula) {
-        String sql = "INSERT INTO peliculas (titulo, director, genero) VALUES (?, ?, ?)";
+    public void saveMovie(Movie movie) {
+        String sql = "INSERT INTO movies (title, director, genre) VALUES (?, ?, ?)";
 
         try {
-            PreparedStatement preparer = this.conexion.prepareStatement(sql);
-            preparer.setString(1, pelicula.getTitulo());
-            preparer.setString(2, pelicula.getDirector());
-            preparer.setString(3, pelicula.getGenero());
+            PreparedStatement preparer = this.connection.prepareStatement(sql);
+            preparer.setString(1, movie.getTitle());
+            preparer.setString(2, movie.getDirector());
+            preparer.setString(3, movie.getGenre());
 
             preparer.executeUpdate();
             preparer.close();
@@ -37,21 +37,21 @@ public class MySQLRepositoryImpl implements IRepository {
     }
 
     @Override
-    public Pelicula findByTitulo(String titulo) {
-        String sql = "SELECT * FROM peliculas WHERE titulo = ?";
+    public Movie findByTitle(String title) {
+        String sql = "SELECT * FROM movies WHERE title = ?";
         try {
-            PreparedStatement preparer = this.conexion.prepareStatement(sql);
-            preparer.setString(1, titulo);
+            PreparedStatement preparer = this.connection.prepareStatement(sql);
+            preparer.setString(1, title);
 
             ResultSet virtualTable = preparer.executeQuery();
 
             if(virtualTable.next()) {
-                Pelicula pelicula = new Pelicula();
-                pelicula.setId(virtualTable.getInt("id"));
-                pelicula.setTitulo(virtualTable.getString("titulo"));
-                pelicula.setDirector(virtualTable.getString("director"));
-                pelicula.setGenero(virtualTable.getString("genero"));
-                return pelicula;
+                Movie movie = new Movie();
+                movie.setId(virtualTable.getInt("id"));
+                movie.setTitle(virtualTable.getString("title"));
+                movie.setDirector(virtualTable.getString("director"));
+                movie.setGenre(virtualTable.getString("genre"));
+                return movie;
             }
 
         } catch (SQLException e) {
@@ -63,11 +63,11 @@ public class MySQLRepositoryImpl implements IRepository {
     }
 
     @Override
-    public void deletePelicula(int id) {
-        String sql = "DELETE FROM peliculas WHERE id = ?";
+    public void deleteMovie(int id) {
+        String sql = "DELETE FROM movies WHERE id = ?";
 
         try {
-            PreparedStatement preparer = this.conexion.prepareStatement(sql);
+            PreparedStatement preparer = this.connection.prepareStatement(sql);
             preparer.setInt(1, id);
 
             preparer.executeUpdate();
@@ -77,18 +77,18 @@ public class MySQLRepositoryImpl implements IRepository {
     }
 
     @Override
-    public boolean updatePelicula(Pelicula pelicula) {
-        String sql = "UPDATE peliculas SET titulo = ?, director = ?, genero = ? WHERE id = ?";
+    public boolean updateMovie(Movie movie) {
+        String sql = "UPDATE movies SET title = ?, director = ?, genre = ? WHERE id = ?";
         
         // Use a logger instead of System.out.println
         Logger logger = Logger.getLogger(this.getClass().getName());
     
         // Try-with-resources to ensure resources are closed
-        try (PreparedStatement preparer = this.conexion.prepareStatement(sql)) {
-            preparer.setString(1, pelicula.getTitulo());
-            preparer.setString(2, pelicula.getDirector());
-            preparer.setString(3, pelicula.getGenero());
-            preparer.setInt(4, pelicula.getId());
+        try (PreparedStatement preparer = this.connection.prepareStatement(sql)) {
+            preparer.setString(1, movie.getTitle());
+            preparer.setString(2, movie.getDirector());
+            preparer.setString(3, movie.getGenre());
+            preparer.setInt(4, movie.getId());
     
             int updated = preparer.executeUpdate();
             logger.log(Level.INFO, "Updated files: {0}", updated);

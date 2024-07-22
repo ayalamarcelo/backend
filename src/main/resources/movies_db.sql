@@ -1,16 +1,16 @@
--- Crear la base de datos
+-- Create
 CREATE DATABASE movies_db;
 
--- Usar la base de datos
+-- Use
 USE movies_db;
 
--- Crear la tabla peliculas
-CREATE TABLE peliculas (
+-- Create movies table
+CREATE TABLE movies (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    titulo VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
     director VARCHAR(255) NOT NULL,
-    genero VARCHAR(100)
+    genre VARCHAR(100)
 );
 
--- Consultar todos los registros de la tabla peliculas
-SELECT * FROM peliculas;
+-- Show table
+SELECT * FROM movies;
