@@ -1,4 +1,4 @@
-<!--<h1 align="center">Movie Archive Backend(movies_db)</h1>-->
+<h1 align="center">Movie Hub</h1>
 
 <p>This project is a backend application developed in Java using Servlet, Apache Tomcat and MySQL. The purpose of the project is to provide an API for managing movies, including CRUD operations with Postman.</p>
 
