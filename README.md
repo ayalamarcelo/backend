@@ -39,15 +39,15 @@ backend/
 └── README.md
 ```
 
-### Requirements
+## Requirements
 
 - [x] JDK 17
 - [x] Apache Tomcat 9.0
 - [x] MySQL
 - [x] Maven
 
-### Environment Configuration
-#### Database
+## Environment Configuration
+Database
 
 1. Create a database in MySQL (Copy the one from the resource folder)
 2. Clone repository (It is recommended to do a FORK)
@@ -60,9 +60,9 @@ backend/
 Connector port=”8090″ protocol=”HTTP/1.1″ connectionTimeout=”20000″ redirectPort=”8443″
 ```
 
-### Use
-#### Deploy the application to Apache Tomcat.
-##### Endpoints:
+## Use
+Deploy the application to Apache Tomcat.
+*Endpoints*:
 
 * GET /movies/{id}: Gets a movie by ID.
 * POST /movies Create a new movie.
