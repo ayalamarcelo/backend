@@ -18,11 +18,11 @@ backend/
 │   │   │   │   │   └── services
 │   │   │   │   │         └── IRepository
 │   │   │   │   ├── domain.models/
-│   │   │   │   │   └── PeliculaService.java
+│   │   │   │   │   └── MovieService.java
 │   │   │   │   │  
 │   │   │   │   ├── infrastructure.repository/
 │   │   │   │   │   ├── controllers/
-│   │   │   │   │   │   └── PeliculaController.java
+│   │   │   │   │   │   └── MovieController.java
 │   │   │   │   │   └── database
 │   │   │   │   │       ├── DatabaseConnection.java
 │   │   │   │   │       └── MySqlRepositoryImpl.java
